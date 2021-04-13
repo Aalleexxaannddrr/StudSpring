@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "jwtSecret": "Kolenchenko Olga ASOIU",
+    "mongoUri": "mongodb+srv://alex:qweewqqweewq@cluster0.psomw.mongodb.net/StudSpring?retryWrites=true&w=majority"
+}

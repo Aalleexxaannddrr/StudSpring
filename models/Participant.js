@@ -5,6 +5,7 @@ const Participant = new Schema({
     name: { type: String, required: true },
     birthday: { type: Date, required: true },
     email: { type: String, required: true },
+    phone_number: { type: String, required: true }
 })
 
 module.exports = model('Participant', Participant)

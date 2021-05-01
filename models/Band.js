@@ -1,11 +1,8 @@
 const { Schema, model } = require('mongoose')
 
-const Organizer = new Schema({
+const Band = new Schema({
     name: { type: String, required: true },
-    birthday: { type: Date, required: true },
-    passport_series: { type: String, required: true },
-    phone_number: { type: String, required: true },
-    email: { type: String, required: true },
+    educarional_establishment_id: { type: String, required: true }
 })
 
-module.exports = model('Organizer', Organizer)
+module.exports = model('Band', Band)

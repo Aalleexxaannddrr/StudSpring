@@ -1,11 +1,11 @@
 const { Router } = require('express')
-const Organizer = require('../models/Organizer')
+const Band = require('../models/Band')
 const router = Router()
 
 router.get('/:id', async (req, res) => {
     try {
-        const organizer = await Organizer.findById(req.params.id)
-        res.json(organizer)
+        const band = await Band.findById(req.params.id)
+        res.json(band)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -13,8 +13,8 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const organizers = await Organizer.find()
-        res.json(organizers)
+        const band = await Band.find()
+        res.json(band)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -23,14 +23,14 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
     console.log(req.body)
     try {
-        const { name, birthday, passport_series, passport_number, phone_number, email } = req.body
-        const organizer = new Organizer({
-            name, birthday, passport_series, passport_number, phone_number, email
+        const { name, educarional_establishment_id } = req.body
+        const band = new Band({
+            name, educarional_establishment_id
         })
 
-        await organizer.save()
+        await band.save()
 
-        res.status(201).json({ organizer })
+        res.status(201).json({ band })
 
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
@@ -40,8 +40,18 @@ router.post('/add', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const organizer = await Organizer.findByIdAndUpdate(req.params.id, req.body)
-        res.status(200).json(organizer)
+        const band = await Band.findByIdAndUpdate(req.params.id, req.body)
+        res.status(200).json(band)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+    }
+
+})
+
+router.put('/:id', async (req, res) => {
+    try {
+        const band = await Band.findByIdAndUpdate(req.params.id, req.body.participants_id)
+        res.status(200).json(band)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -50,8 +60,8 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const organizer = await Organizer.findByIdAndRemove(req.params.id, req.body)
-        res.status(200).json(organizer)
+        const band = await Band.findByIdAndRemove(req.params.id, req.body)
+        res.status(200).json(band)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }

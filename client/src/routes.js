@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { MainPage } from './pages/MainPage'
+import { NewsPage } from './pages/NewsPage'
 import { CompetitionRegisterPage } from './pages/CompetitionRegisterPage'
 import { CompetitionPage } from './pages/CompetitionPage'
 import { ReportPage } from './pages/ReportPage'
@@ -10,13 +10,18 @@ import { RegisterPage } from './pages/RegisterPage'
 import { SpecialRegisterPage } from './pages/SpecialRegisterPage'
 import { CompetitionInfoPage } from './pages/CompetitionInfoPage'
 import { StreamPage } from './pages/StreamPage'
+import { ContactsPage } from './pages/ContactsPage'
+import { AboutPage } from './pages/AboutPage'
 
 export const useRoutes = (isAuthenticated, isOrganizer) => {
     if (isAuthenticated && isOrganizer){
         return (
             <Switch>
-            <Route path="/main" exact>
-                <MainPage />
+            <Route path="/news" exact>
+                <NewsPage />
+            </Route>
+            <Route path="/about" exact>
+                <AboutPage />
             </Route>
             <Route path="/competition_register/:id" exact>
                 <CompetitionRegisterPage />
@@ -24,6 +29,9 @@ export const useRoutes = (isAuthenticated, isOrganizer) => {
             <Route path="/stream/:id" exact>
                 <StreamPage />
             </Route>
+            <Route path="/contacts" exact>
+                <ContactsPage />
+            </Route>
             <Route path="/competition" exact>
                 <CompetitionPage />
             </Route>
@@ -36,18 +44,24 @@ export const useRoutes = (isAuthenticated, isOrganizer) => {
             <Route path="/competition_info/:id" exact>
                 <CompetitionInfoPage />
             </Route>
-            <Redirect to="/main" />
+            <Redirect to="/news" />
         </Switch>    
         )
     }
     if (isAuthenticated && !isOrganizer) {
         return (
             <Switch>
-            <Route path="/main" exact>
-                <MainPage />
+            <Route path="/news" exact>
+                <NewsPage />
+            </Route>
+            <Route path="/about" exact>
+                <AboutPage />
             </Route>
             <Route path="/stream/:id" exact>
                 <StreamPage />
+            </Route>
+            <Route path="/contacts" exact>
+                <ContactsPage />
             </Route>
             <Route path="/competition_info/:id" exact>
                 <CompetitionInfoPage />
@@ -61,17 +75,23 @@ export const useRoutes = (isAuthenticated, isOrganizer) => {
             <Route path="/report_request" exact>
                 <ReportRequestPage />
             </Route>
-            <Redirect to="/main" />
+            <Redirect to="/news" />
         </Switch>
         )
     }
     return (
         <Switch>
-            <Route path="/main" exact>
-                <MainPage />
+            <Route path="/news" exact>
+                <NewsPage />
+            </Route>
+            <Route path="/about" exact>
+                <AboutPage />
             </Route>
             <Route path="/stream/:id" exact>
                 <StreamPage />
+            </Route>
+            <Route path="/contacts" exact>
+                <ContactsPage />
             </Route>
             <Route path="/competition_info/:id" exact>
                 <CompetitionInfoPage />
@@ -94,7 +114,7 @@ export const useRoutes = (isAuthenticated, isOrganizer) => {
             <Route path="/competition" exact>
                 <CompetitionPage />
             </Route>
-        <Redirect to="/main" />
+        <Redirect to="/news" />
     </Switch>
     )
 }

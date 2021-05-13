@@ -10,9 +10,16 @@ app.use(express.json({extended: true}))
 
 // app.use(require("body-parser").json())
 app.use('/api/auth', require('./routs/auth.routes'))
+app.use('/api/band_number', require('./routs/band.number.routes'))
+app.use('/api/band_result', require('./routs/band.result.routes'))
+app.use('/api/band', require('./routs/band.routes'))
+app.use('/api/education_establishment', require('./routs/education_establishment.routes'))
+app.use('/api/individual_number', require('./routs/individual.number.routes'))
+app.use('/api/individual_result', require('./routs/individual.result.routes'))
+app.use('/api/news', require('./routs/news.routes'))
+app.use('/api/nomination', require('./routs/nomination.routes'))
+app.use('/api/participant_of_the_band', require('./routs/participant.of.the.band.routes'))
 app.use('/api/participant', require('./routs/participant.routes'))
-app.use('/api/organizer', require('./routs/organizer.routes'))
-app.use('/api/competition', require('./routs/competition.routes'))
 app.use('/api/user', require('./routs/user.routes'))
 
 async function start() {

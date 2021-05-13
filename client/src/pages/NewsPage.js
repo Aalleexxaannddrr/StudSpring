@@ -3,7 +3,7 @@ import { useHttp } from '../hooks/http.hook'
 import { Link } from 'react-router-dom'
 import { Loader } from '../components/Loader'
 
-export const MainPage = () => {
+export const NewsPage = () => {
      
     var i = 0
     const [search, setSearch] = useState('')

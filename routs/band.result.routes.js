@@ -1,11 +1,11 @@
 const { Router } = require('express')
-const EducationalEstablishment = require('../models/EducationalEstablishment')
+const BandResult = require('../models/BandResult')
 const router = Router()
 
 router.get('/:id', async (req, res) => {
     try {
-        const education_establishment = await EducationalEstablishment.findById(req.params.id)
-        res.json(education_establishment)
+        const band_result = await BandResult.findById(req.params.id)
+        res.json(band_result)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -13,8 +13,8 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const education_establishment = await EducationalEstablishment.find()
-        res.json(education_establishment)
+        const band_result = await BandResult.find()
+        res.json(band_result)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -23,14 +23,14 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
     console.log(req.body)
     try {
-        const { name } = req.body
-        const education_establishment = new EducationalEstablishment({
-            name
+        const { band_number_id } = req.body
+        const band_result = new BandResult({
+          band_number_id
         })
 
-        await education_establishment.save()
+        await band_result.save()
 
-        res.status(201).json({ education_establishment })
+        res.status(201).json({ band_result })
 
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
@@ -40,8 +40,8 @@ router.post('/add', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const education_establishment = await EducationalEstablishment.findByIdAndUpdate(req.params.id, req.body)
-        res.status(200).json(education_establishment)
+        const band_result = await BandResult.findByIdAndUpdate(req.params.id, req.body)
+        res.status(200).json(band_result)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -50,8 +50,8 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const education_establishment = await EducationalEstablishment.findByIdAndRemove(req.params.id, req.body)
-        res.status(200).json(education_establishment)
+        const band_result = await BandResult.findByIdAndRemove(req.params.id, req.body)
+        res.status(200).json(band_result)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }

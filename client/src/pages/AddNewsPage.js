@@ -3,11 +3,11 @@ import { useHttp } from '../hooks/http.hook'
 import { useHistory, useParams } from 'react-router-dom'
 import { Loader } from '../components/Loader'
 
-export const CompetitionRegisterPage = () => {
+export const AddNewsPage = () => {
 
     const history = useHistory()
     const organizer_id = useParams().id
-    const [name, setName] = useState('')
+    const [title, setTitle] = useState('')
     const [start, setStart] = useState('')
     const [end, setEnd] = useState('')
     const [addres, setAddres] = useState('')
@@ -20,7 +20,7 @@ export const CompetitionRegisterPage = () => {
 
     const pressHandler = async () => {
         try {
-            await request('/api/competition/add', 'POST', { name: name, organizer_id: organizer_id, start: start, end: end, addres: addres, age_category: age_category, contribution: contribution, game_type: game_type, cover_type: cover_type, participants_id: participants_id})
+            await request('/api/competition/add', 'POST', { title: title, organizer_id: organizer_id, start: start, end: end, addres: addres, age_category: age_category, contribution: contribution, game_type: game_type, cover_type: cover_type, participants_id: participants_id})
             history.push('/competition')
         } catch (e) { }
     }
@@ -29,8 +29,8 @@ export const CompetitionRegisterPage = () => {
         return <Loader />
     }
 
-    const enableCheck = (name, start, end, addres, age_category, contribution, game_type, cover_type) => {
-        if (name && start && end && addres && age_category && contribution && game_type && cover_type && !loading) {
+    const enableCheck = (title, start, end, addres, age_category, contribution, game_type, cover_type) => {
+        if (title && start && end && addres && age_category && contribution && game_type && cover_type && !loading) {
             return (false)
         } else {
             return (true)
@@ -41,13 +41,14 @@ export const CompetitionRegisterPage = () => {
         <div className="row">
             <div className="col s8 offset-s2" style={{ paddingTop: '2rem' }}>
                 <div className="register-input-field">
-                    <p>Название соревнований</p>
+                    <h4>Добавление новости</h4>
+                    <b>Название новости</b>
                     <input
                         placeholder="Название соревнований"
                         id="name"
                         type="text"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}
                     />
                     <p>Период проведения</p>
                     <p>с</p>
@@ -109,7 +110,7 @@ export const CompetitionRegisterPage = () => {
                         <option value="Ковер">Ковер</option>    
                     </select>
                 </div>
-                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(name, start, end, addres, age_category, contribution, game_type, cover_type)}>Опубликовать</button>
+                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(title, start, end, addres, age_category, contribution, game_type, cover_type)}>Опубликовать</button>
             </div>
         </div>
     )

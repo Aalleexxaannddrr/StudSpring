@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { NewsPage } from './pages/NewsPage'
-import { CompetitionRegisterPage } from './pages/CompetitionRegisterPage'
+import { AddNewsPage } from './pages/AddNewsPage'
 import { CompetitionPage } from './pages/CompetitionPage'
 import { ReportPage } from './pages/ReportPage'
 import { ReportRequestPage } from './pages/ReportRequestPage'
@@ -23,8 +23,8 @@ export const useRoutes = (isAuthenticated, isOrganizer) => {
             <Route path="/about" exact>
                 <AboutPage />
             </Route>
-            <Route path="/competition_register/:id" exact>
-                <CompetitionRegisterPage />
+            <Route path="/add_news" exact>
+                <AddNewsPage />
             </Route>
             <Route path="/stream/:id" exact>
                 <StreamPage />

@@ -3,7 +3,7 @@ import { useHttp } from '../hooks/http.hook'
 import { useHistory, useParams } from 'react-router-dom'
 import { Loader } from '../components/Loader'
 
-export const AddNewsPage = () => {
+export const AddNewsPage = ({savePhoto}) => {
 
     const history = useHistory()
     const organizer_id = useParams().id
@@ -37,6 +37,12 @@ export const AddNewsPage = () => {
         }
     }
 
+    const selectFale = (e) => {
+        if (e.target.files.length) {
+            savePhoto(e.target.files[0])
+        }
+    }
+
     return (
         <div className="row">
             <div className="col s8 offset-s2" style={{ paddingTop: '2rem' }}>
@@ -50,22 +56,11 @@ export const AddNewsPage = () => {
                         value={title}
                         onChange={e => setTitle(e.target.value)}
                     />
-                    <p>Период проведения</p>
-                    <p>с</p>
+                    <p>Изображение к новости</p>
                     <input
-                        placeholder="Начало соревнований"
                         id="start"
-                        type="Date"
-                        value={start}
-                        onChange={e => setStart(e.target.value)}
-                    />
-                    <p>по</p>
-                    <input
-                        placeholder="Конец соревнований"
-                        id="end"
-                        type="Date"
-                        value={end}
-                        onChange={e => setEnd(e.target.value)}
+                        type="file"
+                        onChange={selectFale}
                     />
                     <p>Адрес проведения</p>
                     <input

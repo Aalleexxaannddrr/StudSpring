@@ -26,7 +26,7 @@ export const NewsPage = () => {
     return (
         <div>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
-            {auth.isOrganizer && <Link className="btn-floating btn-large waves-effect waves-light #607d8b blue-grey" to={'/add_news'}><i class="material-icons left">add</i></Link>}
+            {auth.isOrganizer && <Link className="btn-floating btn-large waves-effect waves-light #607d8b blue-grey" to={'/add_news'}><i className="material-icons left">add</i></Link>}
         </div>
     )
 }

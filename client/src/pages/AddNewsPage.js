@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { useHttp } from '../hooks/http.hook'
 import { useHistory, useParams } from 'react-router-dom'
 import { Loader } from '../components/Loader'
+import {Base64} from 'js-base64'
 
 export const AddNewsPage = ({savePhoto}) => {
 
     const history = useHistory()
     const organizer_id = useParams().id
     const [title, setTitle] = useState('')
-    const [start, setStart] = useState('')
+    const [img, setImg] = useState('')
+    const [img1, setImg1] = useState('')
     const [end, setEnd] = useState('')
     const [addres, setAddres] = useState('')
     const [age_category, setAgeCatecory] = useState('')
@@ -20,7 +22,7 @@ export const AddNewsPage = ({savePhoto}) => {
 
     const pressHandler = async () => {
         try {
-            await request('/api/competition/add', 'POST', { title: title, organizer_id: organizer_id, start: start, end: end, addres: addres, age_category: age_category, contribution: contribution, game_type: game_type, cover_type: cover_type, participants_id: participants_id})
+            await request('/api/competition/add', 'POST', { title: title, img: img, end: end, addres: addres, age_category: age_category, contribution: contribution, game_type: game_type, cover_type: cover_type, participants_id: participants_id})
             history.push('/competition')
         } catch (e) { }
     }
@@ -29,8 +31,8 @@ export const AddNewsPage = ({savePhoto}) => {
         return <Loader />
     }
 
-    const enableCheck = (title, start, end, addres, age_category, contribution, game_type, cover_type) => {
-        if (title && start && end && addres && age_category && contribution && game_type && cover_type && !loading) {
+    const enableCheck = (title, img, end, addres, age_category, contribution, game_type, cover_type) => {
+        if (title && img && end && addres && age_category && contribution && game_type && cover_type && !loading) {
             return (false)
         } else {
             return (true)
@@ -38,9 +40,14 @@ export const AddNewsPage = ({savePhoto}) => {
     }
 
     const selectFale = (e) => {
-        if (e.target.files.length) {
-            savePhoto(e.target.files[0])
-        }
+        var file = e.target.files[0]
+        var reader = new FileReader()
+        reader.onloadend = function() {
+            console.log('RESULT', reader.result)
+          }
+        reader.readAsDataURL(file);
+        // setImg(reader)
+        // console.log(img)
     }
 
     return (
@@ -62,6 +69,7 @@ export const AddNewsPage = ({savePhoto}) => {
                         type="file"
                         onChange={selectFale}
                     />
+                    <img src={img} />
                     <p>Адрес проведения</p>
                     <input
                         placeholder="Адрес проведения"
@@ -105,7 +113,7 @@ export const AddNewsPage = ({savePhoto}) => {
                         <option value="Ковер">Ковер</option>    
                     </select>
                 </div>
-                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(title, start, end, addres, age_category, contribution, game_type, cover_type)}>Опубликовать</button>
+                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(title, img, end, addres, age_category, contribution, game_type, cover_type)}>Опубликовать</button>
             </div>
         </div>
     )

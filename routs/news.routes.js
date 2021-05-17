@@ -23,9 +23,9 @@ router.get('/', async (req, res) => {
 router.post('/add', async (req, res) => {
     console.log(req.body)
     try {
-        const { title, ingUrl, content } = req.body
+        const { title, img, content, date } = req.body
         const news = new News({
-          title, ingUrl, content
+          title, img, content, date
         })
 
         await news.save()

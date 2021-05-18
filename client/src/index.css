@@ -1,5 +1,9 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 
+.news-image{
+  max-width: 500px;
+}
+
 .brand-logo {
   width: 60px;
 }

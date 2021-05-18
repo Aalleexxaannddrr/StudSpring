@@ -1,29 +1,22 @@
 import React, { useState } from 'react'
 import { useHttp } from '../hooks/http.hook'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Loader } from '../components/Loader'
-import {Base64} from 'js-base64'
 
-export const AddNewsPage = ({savePhoto}) => {
+export const AddNewsPage = () => {
 
     const history = useHistory()
-    const organizer_id = useParams().id
     const [title, setTitle] = useState('')
     const [img, setImg] = useState('')
-    const [img1, setImg1] = useState('')
-    const [end, setEnd] = useState('')
-    const [addres, setAddres] = useState('')
-    const [age_category, setAgeCatecory] = useState('')
-    const [contribution, setContribution] = useState('')
-    const [game_type, setGameType] = useState('')
-    const [cover_type, setCoverType] = useState('')
-    const participants_id = [""]
+    const [description, setDescription] = useState('')
     const { loading, request } = useHttp()
 
     const pressHandler = async () => {
         try {
-            await request('/api/competition/add', 'POST', { title: title, img: img, end: end, addres: addres, age_category: age_category, contribution: contribution, game_type: game_type, cover_type: cover_type, participants_id: participants_id})
-            history.push('/competition')
+            const date = new Date()
+            console.log(title, date, description, img)
+            // await request('/api/competition/add', 'POST', { title: title, img: img, date: date, description: description})
+            // history.push('/news')
         } catch (e) { }
     }
     
@@ -31,23 +24,21 @@ export const AddNewsPage = ({savePhoto}) => {
         return <Loader />
     }
 
-    const enableCheck = (title, img, end, addres, age_category, contribution, game_type, cover_type) => {
-        if (title && img && end && addres && age_category && contribution && game_type && cover_type && !loading) {
+    const enableCheck = (title, img, description) => {
+        if (title && img && description && !loading) {
             return (false)
         } else {
             return (true)
         }
     }
 
-    const selectFale = (e) => {
+    const selectFile = (e) => {
         var file = e.target.files[0]
         var reader = new FileReader()
-        reader.onloadend = function() {
-            console.log('RESULT', reader.result)
-          }
-        reader.readAsDataURL(file);
-        // setImg(reader)
-        // console.log(img)
+        reader.onloadend = function () {
+            setImg(reader.result)
+        }
+        reader.readAsDataURL(file) 
     }
 
     return (
@@ -55,9 +46,9 @@ export const AddNewsPage = ({savePhoto}) => {
             <div className="col s8 offset-s2" style={{ paddingTop: '2rem' }}>
                 <div className="register-input-field">
                     <h4>Добавление новости</h4>
-                    <b>Название новости</b>
+                    <b>Заголовок</b>
                     <input
-                        placeholder="Название соревнований"
+                        placeholder="Заголовок"
                         id="name"
                         type="text"
                         value={title}
@@ -67,53 +58,20 @@ export const AddNewsPage = ({savePhoto}) => {
                     <input
                         id="start"
                         type="file"
-                        onChange={selectFale}
+                        onChange={selectFile}
                     />
-                    <img src={img} />
-                    <p>Адрес проведения</p>
-                    <input
-                        placeholder="Адрес проведения"
-                        id="addres"
-                        type="text"
-                        value={addres}
-                        onChange={e => setAddres(e.target.value)}
+                    <p></p>
+                    {img && <img className="news-image" src={img} alt="pricol"/>}
+                    <p>Описание</p>
+                    <textarea
+                        placeholder="Описание"
+                        id="textarea1"
+                        className="materialize-textarea"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
                     />
-                    <p>Возрастная категория</p>
-                    <select className="browser-default"
-                        onChange={e => setAgeCatecory(e.target.value)}>
-                        <option value="" >Возрастная категория</option>
-                        <option value="14-18 лет">14-18 лет</option>    
-                        <option value="19-35 лет">19-35 лет</option>    
-                        <option value="старше 35 лет">старше 35 лет</option>    
-                    </select>
-                    <p>Взнос</p>
-                    <input
-                        placeholder="Взнос"
-                        id="contribution"
-                        type="number"
-                        value={contribution}
-                        onChange={e => setContribution(e.target.value)}
-                    />
-                    <p>Тип игры</p>
-                    <select className="browser-default"
-                        onChange={e => setGameType(e.target.value)}>
-                        <option value="" >Тип игры</option>
-                        <option value="Одиночная - женская">Одиночная - женская</option>    
-                        <option value="Одиночная - мужская">Одиночная - мужская</option>    
-                        <option value="Парная - женская">Парная - женская</option>    
-                        <option value="Парная - мужская">Парная - мужская</option>    
-                    </select>
-                    <p>Тип покрытия</p>
-                    <select className="browser-default"
-                        onChange={e => setCoverType(e.target.value)}>
-                        <option value="" >Тип покрытия</option>
-                        <option value="Трава">Трава</option>    
-                        <option value="Хард">Хард</option>    
-                        <option value="Грунт">Грунт</option>    
-                        <option value="Ковер">Ковер</option>    
-                    </select>
                 </div>
-                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(title, img, end, addres, age_category, contribution, game_type, cover_type)}>Опубликовать</button>
+                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(title, img, description)}>Опубликовать</button>
             </div>
         </div>
     )

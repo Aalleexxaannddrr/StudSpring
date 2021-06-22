@@ -12,6 +12,7 @@ import { CompetitionInfoPage } from './pages/CompetitionInfoPage'
 import { StreamPage } from './pages/StreamPage'
 import { ContactsPage } from './pages/ContactsPage'
 import { AboutPage } from './pages/AboutPage'
+import { ChangeNewsPage } from './pages/ChangeNewsPage'
 
 export const useRoutes = (isAuthenticated, isOrganizer) => {
     if (isAuthenticated && isOrganizer){
@@ -19,6 +20,9 @@ export const useRoutes = (isAuthenticated, isOrganizer) => {
             <Switch>
             <Route path="/news" exact>
                 <NewsPage />
+            </Route>
+            <Route path="/change_news" exact>
+                <ChangeNewsPage />
             </Route>
             <Route path="/about" exact>
                 <AboutPage />

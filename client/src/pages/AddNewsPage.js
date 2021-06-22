@@ -8,15 +8,15 @@ export const AddNewsPage = () => {
     const history = useHistory()
     const [title, setTitle] = useState('')
     const [img, setImg] = useState('')
-    const [description, setDescription] = useState('')
+    const [content, setContent] = useState('')
     const { loading, request } = useHttp()
 
     const pressHandler = async () => {
         try {
             const date = new Date()
-            console.log(title, date, description, img)
-            // await request('/api/competition/add', 'POST', { title: title, img: img, date: date, description: description})
-            // history.push('/news')
+            console.log(title, date, content, img)
+            await request('/api/news/add', 'POST', { title: title, img: img, date: date, content: content})
+            history.push('/news')
         } catch (e) { }
     }
     
@@ -24,8 +24,8 @@ export const AddNewsPage = () => {
         return <Loader />
     }
 
-    const enableCheck = (title, img, description) => {
-        if (title && img && description && !loading) {
+    const enableCheck = (title, img, content) => {
+        if (title && img && content && !loading) {
             return (false)
         } else {
             return (true)
@@ -38,7 +38,7 @@ export const AddNewsPage = () => {
         reader.onloadend = function () {
             setImg(reader.result)
         }
-        reader.readAsDataURL(file) 
+        reader.readAsDataURL(file)
     }
 
     return (
@@ -56,9 +56,10 @@ export const AddNewsPage = () => {
                     />
                     <p>Изображение к новости</p>
                     <input
-                        id="start"
+                        id="file"
                         type="file"
                         onChange={selectFile}
+                        accept=".jpg, .png"
                     />
                     <p></p>
                     {img && <img className="news-image" src={img} alt="pricol"/>}
@@ -67,11 +68,11 @@ export const AddNewsPage = () => {
                         placeholder="Описание"
                         id="textarea1"
                         className="materialize-textarea"
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
+                        value={content}
+                        onChange={e => setContent(e.target.value)}
                     />
                 </div>
-                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(title, img, description)}>Опубликовать</button>
+                <button className="waves-effect waves-light btn" onClick={pressHandler} disabled={enableCheck(title, img, content)}>Опубликовать</button>
             </div>
         </div>
     )

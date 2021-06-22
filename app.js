@@ -8,7 +8,6 @@ const app = express()
 
 app.use(express.json({extended: true}))
 
-// app.use(require("body-parser").json())
 app.use('/api/auth', require('./routs/auth.routes'))
 app.use('/api/band_number', require('./routs/band.number.routes'))
 app.use('/api/band_result', require('./routs/band.result.routes'))

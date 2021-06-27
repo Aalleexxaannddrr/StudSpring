@@ -22,9 +22,9 @@ router.get('/', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-        const { name, birthday, phone_number, email, educarional_establishment_id } = req.body
+        const { name, birthday, phone_number, email, band_id } = req.body
         const participant_of_the_band = new ParticipantOfTheBand({
-            name, birthday, phone_number, email, educarional_establishment_id
+            name, birthday, phone_number, email, band_id
         })
 
         await participant_of_the_band.save()

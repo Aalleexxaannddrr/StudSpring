@@ -1,12 +1,20 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const config = require('config')
+const crypto = require('crypto')
+const multer = require('multer')
+const GridFsStorage = require('multer-gridfs-storage')
+const Grid = require('gridfs-storage')
+const methodOverride = require('method-override')
 
 const PORT = config.get('port') || 5000
 
 const app = express()
 
-app.use(express.json({extended: true}))
+app.use(express.json({ extended: true }))
+app.use(bodyParser.json())
+app.use(methodOverride('_method'))
 
 app.use('/api/auth', require('./routs/auth.routes'))
 app.use('/api/band_number', require('./routs/band.number.routes'))

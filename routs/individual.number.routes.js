@@ -21,9 +21,9 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/add', async (req, res) => {
-    console.log(req.body)
     try {
         const { name, participant_id, nomination_id, rating } = req.body
+        console.log(req.body)
         const individual_number = new IndividualNumber({
           name, participant_id, nomination_id, rating
         })
